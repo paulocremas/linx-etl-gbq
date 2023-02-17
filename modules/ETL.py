@@ -129,7 +129,6 @@ def newOrders(counter , orders):
             orderCounter = loadList(treatOrders(extractedOrders , "load"))
         counter = counter - 1
         orders = orders + orderCounter
-        
     try:
         return orders
     except:
