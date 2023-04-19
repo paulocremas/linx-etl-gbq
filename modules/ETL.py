@@ -120,6 +120,7 @@ def loadList(orders):
 
 def newOrders(counter , orders):
     while counter > 0:
+        print(counter)
         config.setWhere(counter, counter - 1)
         extractedOrders = extractOrders()
         if extractedOrders == False:

@@ -2,8 +2,9 @@ import ast
 import modules.config as configuration
 from modules.ETL import newOrders, updateOrders
 from datetime import datetime as dt
+from modules.emailsender import sendEmail
 
-def updateDatalake():
+def run():
   print("Updates")
   storesConfigUpdate = configuration.storesConfig("update")
   for config in storesConfigUpdate:
@@ -11,9 +12,7 @@ def updateDatalake():
     print(config.store)
     configuration.setGlobalConfig(ast.literal_eval(config.data) , config.store)
     updateOrders()
-  return
 
-def insertDatalake():
   orderCounter = 0
   print('------------------------')
   print()
@@ -25,6 +24,15 @@ def insertDatalake():
     configuration.setGlobalConfig(ast.literal_eval(config.data) , config.store)
     days = dt.today() - config.lastUpdateDatalake
     days = days.days
-    orderCounter = newOrders(days - 1 , orderCounter)
+    days = days - 1
+    orderCounter = newOrders(days  , orderCounter) 
+  
+  if orderCounter != 0:
+    sendEmail("""<p>Lojas LINX atualizadas com sucesso</p>
+            <p>Lista de erros: {}</p>
+            <p>Pedidos inseridos: {}</p>""".format(configuration.failedStores , str(orderCounter)).encode('utf-8'))
+    print('Email enviado')
   return orderCounter
 
+run()
+print("Complete.")
