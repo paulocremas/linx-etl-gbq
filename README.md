@@ -9,8 +9,6 @@ This project was developed at Agência FG, a company specializing in building e-
 </br></br>
 ![Context diagram ETL-FG ](https://github.com/user-attachments/assets/31f7f6fb-3840-468c-a1a9-aaea9f997021)
 
----
-
 # Outcome
 
 ETL processes were developed for the VTEX and Linx e-commerce platforms, running daily via cron on an AWS EC2 instance. 
